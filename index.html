@@ -377,17 +377,7 @@
 <h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>&emsp;&emsp;本地方法栈在作用，运行机制，异常类型等方面都与虚拟机栈相同，唯一的区别是：虚拟机栈是执行Java方法的，而本地方法栈是用来执行native方法的，在很多虚拟机中（如Sun的JDK默认的HotSpot虚拟机），会将本地方法栈与虚拟机栈放在一起使用。同样其会抛出两种异常分别是StatckOverFlowError和OutOfMemoryError。</p>
 <h3 id="JAVA堆"><a href="#JAVA堆" class="headerlink" title="JAVA堆"></a>JAVA堆</h3><p>&emsp;&emsp;JAVA堆是垃圾收集器主要管理的区域。其又可以细分为：新生代、老年代；或者Eden区、Frow survivor、To Survivor空间等。在内存分配的角度去看，线程共享的java堆中可能划分出多个线程私有的分配缓冲区（Thread Local Allocation Buffer，TLAB）。无论如何分配器存储的都是对象实例。<br>&emsp;&emsp;一般的，根据Java虚拟机规范规定，堆内存需要在逻辑上是连续的（在物理上不需要），在实现时，可以是固定大小的，也可以是可扩展的（通过-Xmx、-Xms来控制），目前主流的虚拟机都是可扩展的。如果在执行垃圾回收之后，仍没有足够的内存分配，也不能再扩展，将会抛出OutOfMemoryError:Java heap space异常。</p>
 <h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>&emsp;&emsp;方法区也是线程共享的区域，用于存储已经被虚拟机加载的类信息（即加载类时需要加载的信息，包括版本、field、方法、接口等信息）、final常量、静态变量、编译器即时编译的代码等。<br>&emsp;&emsp;方法区在物理上也不需要是连续的，可以选择固定大小或可扩展大小，并且方法区比堆还多了一个限制：可以选择是否执行垃圾收集。一般的，方法区上 执行的垃圾收集是很少的，这也是方法区被称为永久代的原因之一（HotSpot），但这也不代表着在方法区上完全没有垃圾收集，其上的垃圾收集主要是针对常量池的内存回收和对已加载类的卸载。如果对此区域未完全进行垃圾回收同样会导致内存泄漏。在方法区上定义了OutOfMemoryError:PermGen space异常，在内存不足时抛出。一般通过-XX:MaxPermSize设立方法区的内存大小</p>
-<h3 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h3><p>&emsp;&emsp;运行时常量池是方法区的一部分。Class文件中除了有类的版本、字段、方法、接口等描述信息外（具体可参考第6章），还包含一项信息就是常量池，用于存放各种编译期生成的各种字面量和符号引用（符号引用就是编码是用字符串表示某个变量、接口的位置，直接引用就是根据符号引用翻译出来的地址，将在类链接阶段完成翻译）。<br>但注意的是运行时常量池相对于Class文件的常量池的另一个特征是具有动态性。运行时常量池除了存储编译期常量外，也可以存储在运行时间产生的常量（比如String类的intern()方法，作用是String维护了一个常量池，如果调用的字符“abc”已经在常量池中，则返回池中的字符串地址，否则，新建一个常量加入池中，并返回地址）。参考如下代码：</p>
-<pre><code>public static void main(String[] args) throws Exception {  
-String a =  &quot;b&quot; ;   
-String b =  &quot;b&quot; ;   
-
-System.out.print( a == b);   
-
-String c = &quot;d&quot; ;  
-String d = new String( &quot;d&quot; ).intern() ;   
-System.out.println( c == d);  
-</code></pre><p>} </p>
+<h3 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h3><p>&emsp;&emsp;运行时常量池是方法区的一部分。Class文件中除了有类的版本、字段、方法、接口等描述信息外（具体可参考第6章），还包含一项信息就是常量池，用于存放各种编译期生成的各种字面量和符号引用（符号引用就是编码是用字符串表示某个变量、接口的位置，直接引用就是根据符号引用翻译出来的地址，将在类链接阶段完成翻译）。<br>但注意的是运行时常量池相对于Class文件的常量池的另一个特征是具有动态性。运行时常量池除了存储编译期常量外，也可以存储在运行时间产生的常量（比如String类的intern()方法，作用是String维护了一个常量池，如果调用的字符“abc”已经在常量池中，则返回池中的字符串地址，否则，新建一个常量加入池中，并返回地址）。参考如下代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;  </div><div class="line">    String a =  <span class="string">"b"</span> ;   </div><div class="line">    String b =  <span class="string">"b"</span> ;   </div><div class="line">    System.out.print( a == b);   </div><div class="line">    String c = <span class="string">"d"</span> ;  </div><div class="line">    String d = <span class="keyword">new</span> String( <span class="string">"d"</span> ).intern() ;   </div><div class="line">    System.out.println( c == d);  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
           
         
