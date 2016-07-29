@@ -35,8 +35,8 @@
 </ul>
 <p>&emsp;&emsp;目前主流的对象访问方式有两种：</p>
 <ul>
-<li>通过句柄访问：JAVA堆中会划分出一块内存来作为句柄池，reference中存放的是对象句柄的地址，而句柄中则包含了对象实例数据和类型数据的各自的具体地址信息。如图所示：<br><img src="../images/interview_method1.png" width="350" height="250" alt="图片名称" align="center"></li>
-<li>使用直接指针访问：采用该方式JAVA堆对象就需要考虑如何放置访问类型数据的相关信息如图所示：<br><img src="../images/interview_method2.png" width="350" height="250" alt="图片名称" align="center"></li>
+<li>通过句柄访问：JAVA堆中会划分出一块内存来作为句柄池，reference中存放的是对象句柄的地址，而句柄中则包含了对象实例数据和类型数据的各自的具体地址信息。如图所示：<br><img src="https://github.com/xhwhutbupt/xhwhutbupt.github.io/blob/master/images/interview_method1.png" width="350" height="250" alt="图片名称" align="center"></li>
+<li>使用直接指针访问：采用该方式JAVA堆对象就需要考虑如何放置访问类型数据的相关信息如图所示：<br><img src="https://github.com/xhwhutbupt/xhwhutbupt.github.io/blob/master/images/interview_method2.png" width="350" height="250" alt="图片名称" align="center"></li>
 </ul>
 <p>&emsp;&emsp;使用句柄池的好处是reference中存储的是稳定的句柄地址，在对象被移动（垃圾收集的时候移动对象）时只会改变句柄中的实例数据指针，而reference本身无需改变。使用直接指针的函数就是速度更快，节省了一次指针定位的开销，由于对象的访问在JAVA中非常频繁，所以这种开销还是很可观的。在hotspot vm中使用的是方法2。</p>
 ]]></content>
