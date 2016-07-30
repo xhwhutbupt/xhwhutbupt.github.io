@@ -84,26 +84,33 @@
 
 
 
-<meta name="description" content="垃圾收集算法垃圾收集的算法主要分为5种，每种都有自己各自的优缺点，如下所示就是5中垃圾收集算法：
+<meta name="description" content="垃圾收集算法&amp;emsp;&amp;emsp;垃圾收集的算法主要分为5种，每种都有自己各自的优缺点，如下所示就是5中垃圾收集算法：
 
 标记清除算法：顾名思义分为两个阶段“标记”和“清除”，即首先标记处所有需要回收的对象，并标记完成统一的回收。其是后面所有算法的基础，主要不足有两个：一个是效率，标记和清除的效率都不高；一个是造成大量的内存碎片，导致后期分配较大对象的时候可能无法分配导致提前触发GC
-复制算法：为了解决上述标记清除算法">
+复制算法：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JAVA垃圾手机算法与垃圾收集器">
 <meta property="og:url" content="http://mtloveyt.com/2016/07/30/JAVA垃圾手机算法与垃圾收集器/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="垃圾收集算法垃圾收集的算法主要分为5种，每种都有自己各自的优缺点，如下所示就是5中垃圾收集算法：
+<meta property="og:description" content="垃圾收集算法&amp;emsp;&amp;emsp;垃圾收集的算法主要分为5种，每种都有自己各自的优缺点，如下所示就是5中垃圾收集算法：
 
 标记清除算法：顾名思义分为两个阶段“标记”和“清除”，即首先标记处所有需要回收的对象，并标记完成统一的回收。其是后面所有算法的基础，主要不足有两个：一个是效率，标记和清除的效率都不高；一个是造成大量的内存碎片，导致后期分配较大对象的时候可能无法分配导致提前触发GC
-复制算法：为了解决上述标记清除算法">
+复制算法：">
 <meta property="og:image" content="http://mtloveyt.com/../images/garbage_collector.png">
-<meta property="og:updated_time" content="2016-07-30T06:28:01.239Z">
+<meta property="og:image" content="http://mtloveyt.com/../images/serial.png">
+<meta property="og:image" content="http://mtloveyt.com/../images/parnew.png">
+<meta property="og:image" content="http://mtloveyt.com/../images/PS.jpg">
+<meta property="og:image" content="http://mtloveyt.com/../images/serial.png">
+<meta property="og:image" content="http://mtloveyt.com/../images/PS.jpg">
+<meta property="og:image" content="http://mtloveyt.com/../images/cms.jpg">
+<meta property="og:image" content="http://mtloveyt.com/../images/g1.jpg">
+<meta property="og:updated_time" content="2016-07-30T11:43:46.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA垃圾手机算法与垃圾收集器">
-<meta name="twitter:description" content="垃圾收集算法垃圾收集的算法主要分为5种，每种都有自己各自的优缺点，如下所示就是5中垃圾收集算法：
+<meta name="twitter:description" content="垃圾收集算法&amp;emsp;&amp;emsp;垃圾收集的算法主要分为5种，每种都有自己各自的优缺点，如下所示就是5中垃圾收集算法：
 
 标记清除算法：顾名思义分为两个阶段“标记”和“清除”，即首先标记处所有需要回收的对象，并标记完成统一的回收。其是后面所有算法的基础，主要不足有两个：一个是效率，标记和清除的效率都不高；一个是造成大量的内存碎片，导致后期分配较大对象的时候可能无法分配导致提前触发GC
-复制算法：为了解决上述标记清除算法">
+复制算法：">
 <meta name="twitter:image" content="http://mtloveyt.com/../images/garbage_collector.png">
 
 
@@ -376,7 +383,7 @@
       
 
       
-        <h3 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h3><p>垃圾收集的算法主要分为5种，每种都有自己各自的优缺点，如下所示就是5中垃圾收集算法：</p>
+        <h3 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h3><p>&emsp;&emsp;垃圾收集的算法主要分为5种，每种都有自己各自的优缺点，如下所示就是5中垃圾收集算法：</p>
 <ul>
 <li><strong>标记清除算法</strong>：顾名思义分为两个阶段“标记”和“清除”，即首先标记处所有需要回收的对象，并标记完成统一的回收。其是后面所有算法的基础，主要不足有两个：一个是效率，标记和清除的效率都不高；一个是造成大量的内存碎片，导致后期分配较大对象的时候可能无法分配导致提前触发GC</li>
 <li><strong>复制算法</strong>：为了解决上述标记清除算法的效率问题出现了复制算法，其将内存划分成大小相等的两块，每次只使用其中的一块。当这一块内存快用完了的时候，就将剩余还存活的对象复制到另一块内存中，然后再将已经使用的空间一次性的清理掉。这样每次只对半区进行垃圾回收（效率也就高了），同时分配内存空间的时候也就不用考虑存在内存碎片的情况（因为内存总是规整的，垃圾回收的总是另一半的内存）。现代的商业虚拟机都采用这种收集算法收集新生代。</li>
@@ -384,7 +391,62 @@
 <li><strong>增量收集器</strong>：增量收集器把堆栈分为多个域，每次仅从一个域收集垃圾，也可理解为把堆栈分成一小块一小块，每次仅对某一个块进行垃圾收集。这会造成较小的应用程序中断时间，使得用户一般不能觉察到垃圾收集器正在工作。</li>
 <li><strong>分代收集算法</strong>：复制收集器的缺点是：每次收集时，所有的标记对象都要被拷贝，从而导致一些生命周期很长的对象被来回拷贝多次，消耗大量的时间。而分代收集器则可解决这个问题，分代收集器把堆栈分为两个或多个域，用以存放不同寿命的对象。JVM生成的新对象一般放在其中的某个域中。过一段时间，继续存在的对象(非短命对象)将获得使用期并转入更长寿命的域中。分代收集器对不同的域使用不同的算法以优化性能。</li>
 </ul>
-<h3 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h3><p>如果说垃圾收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。如下图是各种在不同年代使用的垃圾收集器，之间的连线表示两种垃圾收集器可以实现配合使用。<br><img src="../images/garbage_collector.png" width="350" height="250" alt="图片名称" align="center"></p>
+<h3 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h3><p>&emsp;&emsp;如果说垃圾收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。如下图是各种在不同年代使用的垃圾收集器，之间的连线表示两种垃圾收集器可以实现配合使用。<br><img src="../images/garbage_collector.png" width="350" height="250" alt="图片名称" align="center"></p>
+<h4 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h4><p>&emsp;&emsp;该收集器是一个单线程的收集器其只会使用一个CPU或一条收集线程去完成垃圾收集工作，同时在进行垃圾收集时，必须暂停所有的工作线程，直到垃圾收集结束（Stop The World）。但stop the world的操作对很多应用而言都是难以接受的。开发团队为消除或者减少工作线程因内存回收而导致停顿的努力一直进行着，从传统的Serial收集器到Parallel收集器再到CMS收集器，用户的停顿时间在不断变短。但并不是说Serial收集器没用，实际上在虚拟机运行在Client模式下的默认新生代收集器仍然是Serial收集器。这是因为由于其简单而高效的垃圾收集方式，没有线程交互的开销。如下图所示是该收集器工作过程：<br><img src="../images/serial.png" width="350" height="100" alt="图片名称" align="center"></p>
+<h4 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h4><p>&emsp;&emsp;该收集器本质上就是Serial收集器多线程版本，除了使用多个线程进行垃圾收集之外，其余行为包括Serial收集器可用的所有控制参数（-XX:SurvivorRatio -XX:PretenureSizeThreshold、-XX：HandlePromotionFailure等）、收集算法、Stop the world、对象分配原则、回收策略都一样。如下图所示是该收集器的工作过程：<br><img src="../images/parnew.png" width="350" height="100" alt="图片名称" align="center"><br>&emsp;&emsp;ParNew收集器是很多运行在Server模式下的虚拟机首选的新生代的垃圾收集器。除了性能的因素外还有一个原因就是目前能和CMS配合使用垃圾收集器除了Parnew和serial之外其余的都不可以。ParNew收集器也是使用了-XX:+UseConcMarkSweepGC的默认的新生代垃圾收集器。其实该收集器在单CPU的环境下的性肯定没Serial效果好，因为产生了一定的线程交互的开销。</p>
+<h4 id="Parallel-Scavenge垃圾收集器"><a href="#Parallel-Scavenge垃圾收集器" class="headerlink" title="Parallel Scavenge垃圾收集器"></a>Parallel Scavenge垃圾收集器</h4><p>&emsp;&emsp;其是一个新生代的垃圾收集器，其采用复制算法的收集器，同时也是并行的多线程垃圾收集器。看上去和ParNew很像，但先要区分以下概念：</p>
+<ul>
+<li>并行：是指多条垃圾收集线程并行工作（所以其收集效率的好差和CPU数目密切相关），但此时所有用户工作线程都处于暂停状态。</li>
+<li>并发：则是指用户线程和垃圾回收线程是同时执行的（但这个过程却不一定是并行，可能是交替执行）。用户程序再继续执行，而垃圾回收线程在另一个CPU上工作。</li>
+</ul>
+<p>&emsp;&emsp;PS收集器的特点在于它垃圾收集的关注点和其他收集器不同，CMS等垃圾收集器更侧重于尽可能的降低用户线程的停顿时间。而PS收集器目标则是达到一个可以控制的吞吐量。<br><img src="../images/PS.jpg" width="350" height="100" alt="图片名称" align="center"><br>&emsp;&emsp;首先停顿时间越短的垃圾收集器越适合于用户交互的程序，因为良好的响应速度会提高用户体验。而高吞吐量则可以高效率的利用CPU时间，尽可能快的完成程序的运算任务，主要适合后台运算而不需要太多的交互任务。与该垃圾收集器相关的JVM参数是-XX:MaxGCPauseMillis设置最大垃圾收集停顿时间、-XX:GCTimeRatio设置吞吐量大小的参数。该收集器也常被称为吞吐量优先的垃圾收集器。<br>&emsp;&emsp;该收集器还有一个重要参数-XX:UserAdaptiveSizePolicy该参数打开之后你就不需要手动指定新生代的大小以SurvivorRatio的值，以及晋升到老年代对象大小的的值，虚拟机会根据当前系统的运行情况和监控情况，动态的调整参数以提供最合适的停顿时间或者最大吞吐量这也是该垃圾收集器和ParNew收集器最大的不同之处。</p>
+<h4 id="Serial-Old垃圾收集器"><a href="#Serial-Old垃圾收集器" class="headerlink" title="Serial Old垃圾收集器"></a>Serial Old垃圾收集器</h4><p>&emsp;&emsp;该收集器是Serial收集器的老年代版本，同样也是用于client模式下的jvm虚拟机。在Server模式下其两种用途一种是在JDK1.5之前和PS收集器配合使用，一中是作为CMS收集器发生Concurrent Mode Failure时作为备选。<br><img src="../images/serial.png" width="350" height="100" alt="图片名称" align="center"></p>
+<h4 id="Parallel-Old垃圾收集器"><a href="#Parallel-Old垃圾收集器" class="headerlink" title="Parallel Old垃圾收集器"></a>Parallel Old垃圾收集器</h4><p>&emsp;&emsp;其是PS收集器的老年代版本，是在JDK1.6之后才提供的与PS收集器配合使用。构成吞吐量优先收集器的组合<br><img src="../images/PS.jpg" width="350" height="100" alt="图片名称" align="center"></p>
+<h4 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h4><p>&emsp;&emsp;CMS是一种以获取最短回收暂停时间为目标的垃圾收集器。广泛应用在网站B/S架构的服务端上，给用户带来较好的相应速度和用户体验。该收集器是基于“标记-清除”算法的垃圾收集器。其垃圾收集过程主要分为四个步骤：</p>
+<ul>
+<li><strong>初始标记</strong></li>
+<li><strong>并发标记</strong></li>
+<li><strong>重新标记</strong></li>
+<li><strong>并发清除</strong></li>
+</ul>
+<p>&emsp;&emsp;其中初始标记和重新标记这两步骤仍需要“stop the world”，但时间很短。首先初始标记的时候（单线程工作）是快速的标记那些和GC Roots有直接关联的对象，所以过程很快。然后并发标记则是GC Roots Tracing的过程（标记一些不是和GC Roots直接关联的对象），这个过程会比较慢，但由于是并发的并不会暂停用户线程。之后是重新标记，重新标记的目的是为了修正在并发标记期间因用户程序继续工作而导致标记产生变动的那一部分的标记记录（可能并发执行期间又产生了新的垃圾）故需要重新标记，这段时间也会暂停所有线程，时间相对于第一阶段会长一点，但也会很短。只有就是并发清除。整个过程耗时最长的是2和4步骤，但由于是并发工作不会影响用户程序的执行。故该收集器的Stop The World的时间很短。<br><img src="../images/cms.jpg" width="350" height="100" alt="图片名称" align="center"><br>&emsp;&emsp;但该收集器同样三个缺点如下：</p>
+<ul>
+<li><p><strong>CMS收集器对CPU资源非常敏感</strong><br>其实，面向并发设计的程序都对CPU资源比较敏感。在并发阶段，它虽然不会导致用户线程停顿，但是会因为占用了一部分线程（或者说CPU资源）而导致应用程序变慢，总吞吐量会降低。CMS默认启动的回收线程数是（CPU数量+3）/ 4，也就是当CPU在4个以上时，并发回收时垃圾收集线程不少于25%的CPU资源，并且随着CPU数量的增加而下降。但是当CPU不足4个（譬如2个）时，CMS对用户程序的影响就可能变得很大。</p>
+</li>
+<li><p><strong>CMS收集器无法处理浮动垃圾</strong><br>CMS收集器无法处理浮动垃圾，可能出现“Concurrent Mode Failure”失败而导致另一次Full GC的产生。由于CMS并发清理阶段用户线程还在运行着，伴随程序运行自然就还会有新的垃圾不断产生，这一部分垃圾出现在标记过程之后，CMS无法在当次收集中处理掉它们，只好留待下一次GC时再清理掉。这一部分垃圾就称为“浮动垃圾”。也是由于在垃圾收集阶段用户线程还需要运行，那也就还需要预留有足够的内存空间给用户线程使用，因此CMS收集器不能像其他收集器那样等到老年代几乎完全被填满了再进行收集，需要预留一部分空间提供并发收集时的程序运作使用。要是CMS运行期间预留的内存无法满足程序需要，就会出现一次“Concurrent Mode Failure”失败，这时虚拟机将启动后备预案：临时启用Serial Old收集器来重新进行老年代的垃圾收集，这样停顿时间就很长了。</p>
+</li>
+<li><p><strong>CMS收集器会产生大量空间碎片</strong><br>CMS是一款基于“标记—清除”算法实现的收集器，这意味着收集结束时会有大量空间碎片产生。空间碎片过多时，将会给大对象分配带来很大麻烦，往往会出现老年代还有很大空间剩余，但是无法找到足够大的连续空间来分配当前对象，不得不提前触发一次Full GC。</p>
+</li>
+</ul>
+<h4 id="G1垃圾收集器"><a href="#G1垃圾收集器" class="headerlink" title="G1垃圾收集器"></a>G1垃圾收集器</h4><p><img src="../images/g1.jpg" width="350" height="250" alt="图片名称" align="center"></p>
+<ol>
+<li>G1垃圾收集器特性<br>G1（Garbage-First）是一款面向服务端应用的垃圾收集器。HotSpot开发团队赋予它的使命是未来可以替换掉JDK 1.5中发布的CMS收集器。与其他GC收集器相比，G1具备如下特点。</li>
+</ol>
+<ul>
+<li><p><strong>并行与并发</strong><br>G1能充分利用多CPU、多核环境下的硬件优势，使用多个CPU来缩短Stop-The-World停顿的时间，部分其他收集器原本需要停顿Java线程执行的GC动作，G1收集器仍然可以通过并发的方式让Java程序继续执行。</p>
+</li>
+<li><p><strong>分代收集</strong><br>与其他收集器一样，分代概念在G1中依然得以保留。虽然G1可以不需要其他收集器配合就能独立管理整个GC堆，但它能够采用不同的方式去处理新创建的对象和已经存活了一段时间、熬过多次GC的旧对象以获取更好的收集效果。</p>
+</li>
+<li><p><strong>空间整合</strong><br>与CMS的“标记—清理”算法不同，G1从整体来看是基于“标记—整理”算法实现的收集器，从局部（两个Region之间）上来看是基于“复制”算法实现的，但无论如何，这两种算法都意味着G1运作期间不会产生内存空间碎片，收集后能提供规整的可用内存。这种特性有利于程序长时间运行，分配大对象时不会因为无法找到连续内存空间而提前触发下一次GC。</p>
+</li>
+<li><p><strong>可预测的停顿</strong><br>这是G1相对于CMS的另一大优势，降低停顿时间是G1和CMS共同的关注点，但G1除了追求低停顿外，还能建立可预测的停顿时间模型，能让使用者明确指定在一个长度为M毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒。</p>
+</li>
+</ul>
+<p>&emsp;&emsp;在G1之前的其他收集器进行收集的范围都是整个新生代或者老年代，而G1不再是这样。使用G1收集器时，Java堆的内存布局就与其他收集器有很大差别，它将整个Java堆划分为多个大小相等的独立区域（Region），虽然还保留有新生代和老年代的概念，但新生代和老年代不再是物理隔离的了，它们都是一部分Region（不需要连续）的集合。</p>
+<p>&emsp;&emsp;G1收集器之所以能建立可预测的停顿时间模型，是因为它可以有计划地避免在整个Java堆中进行全区域的垃圾收集。G1跟踪各个Region里面的垃圾堆积的价值大小（回收所获得的空间大小以及回收所需时间的经验值），在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的Region（这也就是Garbage-First名称的来由）。这种使用Region划分内存空间以及有优先级的区域回收方式，保证了G1收集器在有限的时间内可以获取尽可能高的收集效率。</p>
+<ol>
+<li>执行过程<br>&emsp;&emsp;G1收集器的运作大致可划分为以下几个步骤：</li>
+</ol>
+<ul>
+<li><p><strong>初始标记（Initial Marking）</strong><br>初始标记阶段仅仅只是标记一下GC Roots能直接关联到的对象，并且修改TAMS（Next Top at Mark Start）的值，让下一阶段用户程序并发运行时，能在正确可用的Region中创建新对象，这阶段需要停顿线程，但耗时很短。</p>
+</li>
+<li><p><strong>并发标记（Concurrent Marking）</strong><br>并发标记阶段是从GC Root开始对堆中对象进行可达性分析，找出存活的对象，这阶段耗时较长，但可与用户程序并发执行。</p>
+</li>
+<li><p><strong>最终标记（Final Marking）</strong><br>最终标记阶段是为了修正在并发标记期间因用户程序继续运作而导致标记产生变动的那一部分标记记录，虚拟机将这段时间对象变化记录在线程Remembered Set Logs里面，最终标记阶段需要把Remembered Set Logs的数据合并到Remembered Set中，这阶段需要停顿线程，但是可并行执行。</p>
+</li>
+<li><p><strong>筛选回收（Live Data Counting and Evacuation）</strong><br>筛选回收阶段首先对各个Region的回收价值和成本进行排序，根据用户所期望的GC停顿时间来制定回收计划，这个阶段其实也可以做到与用户程序一起并发执行，但是因为只回收一部分Region，时间是用户可控制的，而且停顿用户线程将大幅提高收集效率。</p>
+</li>
+</ul>
 
       
     </div>
@@ -597,7 +659,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集算法"><span class="nav-number">1.</span> <span class="nav-text">垃圾收集算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">2.</span> <span class="nav-text">垃圾收集器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集算法"><span class="nav-number">1.</span> <span class="nav-text">垃圾收集算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">2.</span> <span class="nav-text">垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Serial收集器"><span class="nav-number">2.1.</span> <span class="nav-text">Serial收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ParNew收集器"><span class="nav-number">2.2.</span> <span class="nav-text">ParNew收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parallel-Scavenge垃圾收集器"><span class="nav-number">2.3.</span> <span class="nav-text">Parallel Scavenge垃圾收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Serial-Old垃圾收集器"><span class="nav-number">2.4.</span> <span class="nav-text">Serial Old垃圾收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parallel-Old垃圾收集器"><span class="nav-number">2.5.</span> <span class="nav-text">Parallel Old垃圾收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMS收集器"><span class="nav-number">2.6.</span> <span class="nav-text">CMS收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G1垃圾收集器"><span class="nav-number">2.7.</span> <span class="nav-text">G1垃圾收集器</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

@@ -92,14 +92,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="JAVA对象的创建&amp;emsp;&amp;emsp;对象的创建一共分三步进行。
 (1)、为对象分配内存&amp;emsp;&amp;emsp;这里所得创建对象（仅限于普通对象，不包含数组和Class对象等），通常我们通过一个new关键字创建对象。但我们要知道虚拟机在遇到一条new指令时，其首先将去检查这个指令参数（类名）是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载（将符号引用转变成直接引">
-<meta property="og:image" content="https://github.com/xhwhutbupt/xhwhutbupt.github.io/images/interview_method1.png">
-<meta property="og:image" content="https://github.com/xhwhutbupt/xhwhutbupt.github.io/images/interview_method2.png">
-<meta property="og:updated_time" content="2016-07-30T06:54:22.574Z">
+<meta property="og:image" content="http://mtloveyt.com/xhwhutbupt.github.io/images/interview_method1.png">
+<meta property="og:image" content="http://mtloveyt.com/xhwhutbupt.github.io/images/interview_method2.png">
+<meta property="og:updated_time" content="2016-07-30T06:58:16.145Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA对象的创建和内存存储布局">
 <meta name="twitter:description" content="JAVA对象的创建&amp;emsp;&amp;emsp;对象的创建一共分三步进行。
 (1)、为对象分配内存&amp;emsp;&amp;emsp;这里所得创建对象（仅限于普通对象，不包含数组和Class对象等），通常我们通过一个new关键字创建对象。但我们要知道虚拟机在遇到一条new指令时，其首先将去检查这个指令参数（类名）是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载（将符号引用转变成直接引">
-<meta name="twitter:image" content="https://github.com/xhwhutbupt/xhwhutbupt.github.io/images/interview_method1.png">
+<meta name="twitter:image" content="http://mtloveyt.com/xhwhutbupt.github.io/images/interview_method1.png">
 
 
 
@@ -394,8 +394,8 @@
 </ul>
 <p>&emsp;&emsp;目前主流的对象访问方式有两种：</p>
 <ul>
-<li>通过句柄访问：JAVA堆中会划分出一块内存来作为句柄池，reference中存放的是对象句柄的地址，而句柄中则包含了对象实例数据和类型数据的各自的具体地址信息。如图所示：<br><img src="https://github.com/xhwhutbupt/xhwhutbupt.github.io/images/interview_method1.png" width="350" height="250" alt="图片名称" align="center"></li>
-<li>使用直接指针访问：采用该方式JAVA堆对象就需要考虑如何放置访问类型数据的相关信息如图所示：<br><img src="https://github.com/xhwhutbupt/xhwhutbupt.github.io/images/interview_method2.png" width="350" height="250" alt="图片名称" align="center"></li>
+<li>通过句柄访问：JAVA堆中会划分出一块内存来作为句柄池，reference中存放的是对象句柄的地址，而句柄中则包含了对象实例数据和类型数据的各自的具体地址信息。如图所示：<br><img src="xhwhutbupt.github.io/images/interview_method1.png" width="350" height="250" alt="图片名称" align="center"></li>
+<li>使用直接指针访问：采用该方式JAVA堆对象就需要考虑如何放置访问类型数据的相关信息如图所示：<br><img src="xhwhutbupt.github.io/images/interview_method2.png" width="350" height="250" alt="图片名称" align="center"></li>
 </ul>
 <p>&emsp;&emsp;使用句柄池的好处是reference中存储的是稳定的句柄地址，在对象被移动（垃圾收集的时候移动对象）时只会改变句柄中的实例数据指针，而reference本身无需改变。使用直接指针的函数就是速度更快，节省了一次指针定位的开销，由于对象的访问在JAVA中非常频繁，所以这种开销还是很可观的。在hotspot vm中使用的是方法2。</p>
 
