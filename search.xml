@@ -4,26 +4,41 @@
   
     
     <entry>
+      <title><![CDATA[JAVA垃圾手机算法与垃圾收集器]]></title>
+      <url>http://mtloveyt.com/2016/07/30/JAVA%E5%9E%83%E5%9C%BE%E6%89%8B%E6%9C%BA%E7%AE%97%E6%B3%95%E4%B8%8E%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/</url>
+      <content type="html"><![CDATA[<h3 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h3><p>垃圾收集的算法主要分为5种，每种都有自己各自的优缺点，如下所示就是5中垃圾收集算法：</p>
+<ul>
+<li><strong>标记清除算法</strong>：顾名思义分为两个阶段“标记”和“清除”，即首先标记处所有需要回收的对象，并标记完成统一的回收。其是后面所有算法的基础，主要不足有两个：一个是效率，标记和清除的效率都不高；一个是造成大量的内存碎片，导致后期分配较大对象的时候可能无法分配导致提前触发GC</li>
+<li><strong>复制算法</strong>：为了解决上述标记清除算法的效率问题出现了复制算法，其将内存划分成大小相等的两块，每次只使用其中的一块。当这一块内存快用完了的时候，就将剩余还存活的对象复制到另一块内存中，然后再将已经使用的空间一次性的清理掉。这样每次只对半区进行垃圾回收（效率也就高了），同时分配内存空间的时候也就不用考虑存在内存碎片的情况（因为内存总是规整的，垃圾回收的总是另一半的内存）。现代的商业虚拟机都采用这种收集算法收集新生代。</li>
+<li><strong>标记清除算法</strong>：复制算法对于对象存活率较低的空间还是比较适合的，但是对于存活率较高的对象就需要频发的赋值操作，显然效率就会很低。对于老年代这部分内存空间由于对象存活时间普遍较长，故一般不采用该方式。根据老年代的特点，提出了“标记-整理”算法。标记过程仍与标记、清除算法相同。但后续步骤不是直接对垃圾对象进行清理，而是让所有存活的对象向一端移动，然后在清理掉边界以外的内存。</li>
+<li><strong>增量收集器</strong>：增量收集器把堆栈分为多个域，每次仅从一个域收集垃圾，也可理解为把堆栈分成一小块一小块，每次仅对某一个块进行垃圾收集。这会造成较小的应用程序中断时间，使得用户一般不能觉察到垃圾收集器正在工作。</li>
+<li><strong>分代收集算法</strong>：复制收集器的缺点是：每次收集时，所有的标记对象都要被拷贝，从而导致一些生命周期很长的对象被来回拷贝多次，消耗大量的时间。而分代收集器则可解决这个问题，分代收集器把堆栈分为两个或多个域，用以存放不同寿命的对象。JVM生成的新对象一般放在其中的某个域中。过一段时间，继续存在的对象(非短命对象)将获得使用期并转入更长寿命的域中。分代收集器对不同的域使用不同的算法以优化性能。</li>
+</ul>
+<h3 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h3><p>如果说垃圾收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。如下图是各种在不同年代使用的垃圾收集器，之间的连线表示两种垃圾收集器可以实现配合使用。<br><img src="../images/garbage_collector.png" width="350" height="250" alt="图片名称" align="center"></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[垃圾收集器与内存分配策略]]></title>
-      <url>http://yoursite.com/2016/07/29/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5/</url>
-      <content type="html"><![CDATA[<h3 id="判定一个对象是否已经死亡的方法"><a href="#判定一个对象是否已经死亡的方法" class="headerlink" title="判定一个对象是否已经死亡的方法"></a>判定一个对象是否已经死亡的方法</h3><h4 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h4><p>该方法是为每个对象添加一个引用计数器，每当有一个地方引用了该对象的时候，该计数器的值加1；当引用失效时，计数器的值减1。当计数器的值为0的时候就回收该对象。但其主要的问题在于其无法解决循环引用的问题。如代码所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;  </div><div class="line">    <span class="comment">//设ReferenceGc是一个类，其包含属性instance同样也是一个RefenenceGc对象</span></div><div class="line">	ReferenceGc objA=<span class="keyword">new</span> ReferenceGc();</div><div class="line">	ReferenceGc objB=<span class="keyword">new</span> ReferenceGc();</div><div class="line">	objA.instance=objB;</div><div class="line">	objB.instance=objA;</div><div class="line">	objA=<span class="keyword">null</span>;</div><div class="line">	objB=<span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+      <url>http://mtloveyt.com/2016/07/29/%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5/</url>
+      <content type="html"><![CDATA[<h3 id="判定一个对象是否已经死亡的方法"><a href="#判定一个对象是否已经死亡的方法" class="headerlink" title="判定一个对象是否已经死亡的方法"></a>判定一个对象是否已经死亡的方法</h3><h4 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h4><p>&emsp;&emsp;该方法是为每个对象添加一个引用计数器，每当有一个地方引用了该对象的时候，该计数器的值加1；当引用失效时，计数器的值减1。当计数器的值为0的时候就回收该对象。但其主要的问题在于其无法解决循环引用的问题。如代码所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;  </div><div class="line">    <span class="comment">//设ReferenceGc是一个类，其包含属性instance同样也是一个RefenenceGc对象</span></div><div class="line">	ReferenceGc objA=<span class="keyword">new</span> ReferenceGc();</div><div class="line">	ReferenceGc objB=<span class="keyword">new</span> ReferenceGc();</div><div class="line">	objA.instance=objB;</div><div class="line">	objB.instance=objA;</div><div class="line">	objA=<span class="keyword">null</span>;</div><div class="line">	objB=<span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>上述的代码就会出现循环引用的问题，我们会发现计数器永远都不会变为0。</p>
-<h4 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h4><p>该算法基本思路是通过一系列被称为“GC Roots”的对象作为根节点（起始点），从这些节点开始向下搜索，搜索过程中所走过的路径称为引用链，当一个对象到GC Roots没有任何引用链相连的（即GC Roots到这个对象不可达）时候，即认为该对象是可回收对象。</p>
+<h4 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h4><p>&emsp;&emsp;该算法基本思路是通过一系列被称为“GC Roots”的对象作为根节点（起始点），从这些节点开始向下搜索，搜索过程中所走过的路径称为引用链，当一个对象到GC Roots没有任何引用链相连的（即GC Roots到这个对象不可达）时候，即认为该对象是可回收对象。</p>
 <ul>
 <li>虚拟机栈中的引用的对象。</li>
 <li>方法区中类静态属性引用指向的对象。</li>
 <li>方法区中常量引用指向的对象。</li>
 <li>Native方法中JNI（一般指的是native方法）引用的对象。</li>
 </ul>
-<h4 id="何为引用以及引用的分类"><a href="#何为引用以及引用的分类" class="headerlink" title="何为引用以及引用的分类"></a>何为引用以及引用的分类</h4><p>首先我们知道判断一个对象是否存活都与该对象对应的引用相关。在传统的定义中：如果引用类型的数据中存储的数值代表的是另外一块内存的起始地址，就称该这块内存代表着一个引用。但是传统的引用定义太过狭隘，其定义限制了对象只有两种状态“被引用”或者“没有被引用”。但是对于一些“食之无味，弃之可惜”的独享就显得无能为力了（即一个中间状态）。即我们希望描述这样一类对象：当内存足够的时候，将其保留在内存中，反之如果在垃圾手机后内存还是非常紧张，则可以抛弃这些对象。故在java虚拟机对引用进行概念上的补充，将引用分为了“强引用”、“软引用”、“弱引用”、“虚引用”。具体定义如下：</p>
+<h3 id="何为引用以及引用的分类"><a href="#何为引用以及引用的分类" class="headerlink" title="何为引用以及引用的分类"></a>何为引用以及引用的分类</h3><p>&emsp;&emsp;首先我们知道判断一个对象是否存活都与该对象对应的引用相关。在传统的定义中：如果引用类型的数据中存储的数值代表的是另外一块内存的起始地址，就称该这块内存代表着一个引用。但是传统的引用定义太过狭隘，其定义限制了对象只有两种状态“被引用”或者“没有被引用”。但是对于一些“食之无味，弃之可惜”的独享就显得无能为力了（即一个中间状态）。即我们希望描述这样一类对象：当内存足够的时候，将其保留在内存中，反之如果在垃圾手机后内存还是非常紧张，则可以抛弃这些对象。故在java虚拟机对引用进行概念上的补充，将引用分为了“强引用”、“软引用”、“弱引用”、“虚引用”。具体定义如下：</p>
 <ul>
 <li>强引用是使用最普遍的引用。如果一个对象具有强引用，那垃圾回收器绝不会回收它。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠随意回收具有强引用的对象来解决内存不足的问题。  ps：强引用其实也就是我们平时A a = new A()这个意思。</li>
 <li>如果一个对象只具有软引用，则内存空间足够，垃圾回收器就不会回收它；如果进行垃圾回收后发现内存空间不足了，就会回收这些对象的内存，同时如果回收了该对象之后发现内存空间还是不够就会抛出OutOfMemoryError错误，只要垃圾回收器没有回收它，该对象就可以被程序使用。软引用可用来实现内存敏感的高速缓存（下文给出示例）。<br>软引用可以和一个引用队列（ReferenceQueue）联合使用，如果软引用所引用的对象被垃圾回收器回收，Java虚拟机就会把这个软引用加入到与之关联的引用队列中。</li>
 <li>弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过，由于垃圾回收器是一个优先级很低的线程，因此不一定会很快发现那些只具有弱引用的对象。<br>弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被垃圾回收，Java虚拟机就会把这个弱引用加入到与之关联的引用队列中。（其强度比软引用更弱一点，被弱引用关联的对象只能生存到下一次垃圾回收发生之前，当垃圾收集器工作时，无论当前内存是否足够，都会回收掉被弱引用关联的对象）(WeakReference)</li>
 <li>“虚引用”顾名思义，就是形同虚设，与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收器回收。为一个对象设置虚引用关联的唯一目的在于能在对象被垃圾回收的时候收到一个系统通知。（PhantomReference）</li>
 </ul>
-<h4 id="对象死亡与否"><a href="#对象死亡与否" class="headerlink" title="对象死亡与否"></a>对象死亡与否</h4><p>其实通过引用计数法或者可达性分析判定了一个对象没有了任何引用存在，此时对象也只是处于“缓刑期”，即其还是有可能在复活的。要真正宣告一个对象死亡至少需要两个标记过程：第一次是通过可达性分析对象是否可达，并且进行一次筛选，筛选的条件是对象有无必要执行finalize()方法。当对象没有覆盖该方法或者该方法已经被调用过一次，这些情况都会被判定为没有必要执行。但如果判定为有必要执行，则会将该对象放置在F-Queue的队列中，并在稍后通过一个JVM的优先级很低的Finalizer线程去执行它。finalize方法是对象逃脱死亡的最后一次机会，稍后GC将对F-Queue中对象进行第二次标记，如果对象在finalize中成功解救自己（即有关联了某个引用），则会被移除队列。但我们要知道的是finalize方法只能被执行一次，所以对象也只有一次解救自己的机会。</p>
-<h4 id="方法区的垃圾回收"><a href="#方法区的垃圾回收" class="headerlink" title="方法区的垃圾回收"></a>方法区的垃圾回收</h4><p>永久代的垃圾回收主要指两部分的内容：废弃常量和无用的类。常量的回收方法和方式和一般java堆中垃圾回收方式相似。但类的回收则比较苛刻，判定一个类是否是“无用的类”需要经过三个步骤：</p>
+<h3 id="对象死亡与否"><a href="#对象死亡与否" class="headerlink" title="对象死亡与否"></a>对象死亡与否</h3><p>&emsp;&emsp;其实通过引用计数法或者可达性分析判定了一个对象没有了任何引用存在，此时对象也只是处于“缓刑期”，即其还是有可能在复活的。要真正宣告一个对象死亡至少需要两个标记过程：第一次是通过可达性分析对象是否可达，并且进行一次筛选，筛选的条件是对象有无必要执行finalize()方法。当对象没有覆盖该方法或者该方法已经被调用过一次，这些情况都会被判定为没有必要执行。但如果判定为有必要执行，则会将该对象放置在F-Queue的队列中，并在稍后通过一个JVM的优先级很低的Finalizer线程去执行它。finalize方法是对象逃脱死亡的最后一次机会，稍后GC将对F-Queue中对象进行第二次标记，如果对象在finalize中成功解救自己（即有关联了某个引用），则会被移除队列。但我们要知道的是finalize方法只能被执行一次，所以对象也只有一次解救自己的机会。</p>
+<h3 id="方法区的垃圾回收"><a href="#方法区的垃圾回收" class="headerlink" title="方法区的垃圾回收"></a>方法区的垃圾回收</h3><p>&emsp;&emsp;永久代的垃圾回收主要指两部分的内容：废弃常量和无用的类。常量的回收方法和方式和一般java堆中垃圾回收方式相似。但类的回收则比较苛刻，判定一个类是否是“无用的类”需要经过三个步骤：</p>
 <ul>
 <li>该类的实例是否已经都被回收</li>
 <li>加载该类的ClassLoader是否已经回收</li>
@@ -34,7 +49,7 @@
     
     <entry>
       <title><![CDATA[JAVA对象的创建和内存存储布局]]></title>
-      <url>http://yoursite.com/2016/07/29/JAVA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%86%85%E5%AD%98%E5%AD%98%E5%82%A8%E5%B8%83%E5%B1%80/</url>
+      <url>http://mtloveyt.com/2016/07/29/JAVA%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E5%86%85%E5%AD%98%E5%AD%98%E5%82%A8%E5%B8%83%E5%B1%80/</url>
       <content type="html"><![CDATA[<h3 id="JAVA对象的创建"><a href="#JAVA对象的创建" class="headerlink" title="JAVA对象的创建"></a>JAVA对象的创建</h3><p>&emsp;&emsp;对象的创建一共分三步进行。</p>
 <h4 id="1-、为对象分配内存"><a href="#1-、为对象分配内存" class="headerlink" title="(1)、为对象分配内存"></a>(1)、为对象分配内存</h4><p>&emsp;&emsp;这里所得创建对象（仅限于普通对象，不包含数组和Class对象等），通常我们通过一个new关键字创建对象。但我们要知道虚拟机在遇到一条new指令时，其首先将去检查这个指令参数（类名）是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载（将符号引用转变成直接引用，直接引用就是根据符号引用翻译出来的地址，将在类链接阶段完成翻译）、解析和初始化过。如果没有，那必须先执行相应的类加载过程。<br>在类加载检查通过后，接下来虚拟机将为新生对象分配内存。一个对象所需内存的大小在类加载完成后便可完全确定，而一般对象分配内存的方式有两种：</p>
 <ol>
@@ -67,7 +82,7 @@
     
     <entry>
       <title><![CDATA[JAVA内存区域与内存溢出异常]]></title>
-      <url>http://yoursite.com/2016/07/26/JAVA%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/</url>
+      <url>http://mtloveyt.com/2016/07/26/JAVA%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/</url>
       <content type="html"><![CDATA[<h2 id="JAVA内存区域-JAVA虚拟机运行时数据区"><a href="#JAVA内存区域-JAVA虚拟机运行时数据区" class="headerlink" title="JAVA内存区域-JAVA虚拟机运行时数据区"></a>JAVA内存区域-JAVA虚拟机运行时数据区</h2><p>&emsp;&emsp;了解Java GC机制，必须先清楚在JVM中内存区域的划分。在Java运行时的数据区里，由JVM管理的内存区域分为下图几个模块：<br><img src="xhwhutbupt.github.io/images/store.jpg" width="350" height="250" alt="图片名称" align="center"></p>
 <h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>&emsp;&emsp;其实线程私有的，用于指定当前线程所执行的字节码的行号指示器，字节码解释器通过改变这个计数器的值来选取吓一跳需要执行的字节码指令。如果线程正在执行的是一个java方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是native方法，这是计数值则为空。该内存区域时唯一一个java虚拟机规范中没有规定outofmemoryerror的区域</p>
 <h3 id="JAVA虚拟机栈"><a href="#JAVA虚拟机栈" class="headerlink" title="JAVA虚拟机栈"></a>JAVA虚拟机栈</h3><p>&emsp;&emsp;该区域同样是线程私有的，其生命周期和线程相同。一个线程的每个方法在执行的同时，都会创建一个栈帧（Statck Frame），栈帧中存储的有局部变量表、操作站、动态链接、方法出口等，当方法被调用时，栈帧在JVM栈中入栈，当方法执行完成时，栈帧出栈。<br>&emsp;&emsp;局部变量表中存储着方法的相关局部变量，包括各种基本数据类型，对象的引用，返回地址等。在局部变量表中，只有long和double类型会占 用2个局部变量空间（Slot，对于32位机器，一个Slot就是32个bit），其它都是1个Slot。需要注意的是，局部变量表是在编译时就已经确定 好的，方法运行所需要分配的空间在栈帧中是完全确定的，在方法的生命周期内都不会改变。<br>&emsp;&emsp;虚拟机栈中定义了两种异常，如果线程调用的栈深度大于虚拟机允许的最大深度，则抛出StatckOverFlowError（栈溢出）；不过多 数Java虚拟机都允许动态扩展虚拟机栈的大小(有少部分是固定长度的)，所以线程可以一直申请栈，知道内存不足，此时，会抛出OutOfMemoryError（内存溢出）。</p>
@@ -82,7 +97,7 @@
     
     <entry>
       <title><![CDATA[Hello World]]></title>
-      <url>http://yoursite.com/2016/07/24/hello-world/</url>
+      <url>http://mtloveyt.com/2016/07/24/hello-world/</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
