@@ -301,8 +301,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/30/JAVA垃圾手机算法与垃圾收集器/" itemprop="url">
-                  JAVA垃圾手机算法与垃圾收集器
+                <a class="post-title-link" href="/2016/07/30/JAVA垃圾收集算法与垃圾收集器/" itemprop="url">
+                  JAVA垃圾收集算法与垃圾收集器
                 </a>
               
             
@@ -345,8 +345,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/30/JAVA垃圾手机算法与垃圾收集器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/30/JAVA垃圾手机算法与垃圾收集器/" itemprop="commentsCount"></span>
+                <a href="/2016/07/30/JAVA垃圾收集算法与垃圾收集器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/30/JAVA垃圾收集算法与垃圾收集器/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -407,9 +407,7 @@
 </li>
 </ul>
 <h4 id="G1垃圾收集器"><a href="#G1垃圾收集器" class="headerlink" title="G1垃圾收集器"></a>G1垃圾收集器</h4><p><img src="../images/g1.jpg" width="350" height="250" alt="图片名称" align="center"></p>
-<ol>
-<li>G1垃圾收集器特性<br>G1（Garbage-First）是一款面向服务端应用的垃圾收集器。HotSpot开发团队赋予它的使命是未来可以替换掉JDK 1.5中发布的CMS收集器。与其他GC收集器相比，G1具备如下特点。</li>
-</ol>
+<h5 id="G1垃圾收集器特性"><a href="#G1垃圾收集器特性" class="headerlink" title="G1垃圾收集器特性"></a>G1垃圾收集器特性</h5><p>G1（Garbage-First）是一款面向服务端应用的垃圾收集器。HotSpot开发团队赋予它的使命是未来可以替换掉JDK 1.5中发布的CMS收集器。与其他GC收集器相比，G1具备如下特点。</p>
 <ul>
 <li><p><strong>并行与并发</strong><br>G1能充分利用多CPU、多核环境下的硬件优势，使用多个CPU来缩短Stop-The-World停顿的时间，部分其他收集器原本需要停顿Java线程执行的GC动作，G1收集器仍然可以通过并发的方式让Java程序继续执行。</p>
 </li>
@@ -422,9 +420,7 @@
 </ul>
 <p>&emsp;&emsp;在G1之前的其他收集器进行收集的范围都是整个新生代或者老年代，而G1不再是这样。使用G1收集器时，Java堆的内存布局就与其他收集器有很大差别，它将整个Java堆划分为多个大小相等的独立区域（Region），虽然还保留有新生代和老年代的概念，但新生代和老年代不再是物理隔离的了，它们都是一部分Region（不需要连续）的集合。</p>
 <p>&emsp;&emsp;G1收集器之所以能建立可预测的停顿时间模型，是因为它可以有计划地避免在整个Java堆中进行全区域的垃圾收集。G1跟踪各个Region里面的垃圾堆积的价值大小（回收所获得的空间大小以及回收所需时间的经验值），在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的Region（这也就是Garbage-First名称的来由）。这种使用Region划分内存空间以及有优先级的区域回收方式，保证了G1收集器在有限的时间内可以获取尽可能高的收集效率。</p>
-<ol>
-<li>执行过程<br>&emsp;&emsp;G1收集器的运作大致可划分为以下几个步骤：</li>
-</ol>
+<p>#####　执行过程<br>G1收集器的运作大致可划分为以下几个步骤：</p>
 <ul>
 <li><p><strong>初始标记（Initial Marking）</strong><br>初始标记阶段仅仅只是标记一下GC Roots能直接关联到的对象，并且修改TAMS（Next Top at Mark Start）的值，让下一阶段用户程序并发运行时，能在正确可用的Region中创建新对象，这阶段需要停顿线程，但耗时很短。</p>
 </li>

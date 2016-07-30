@@ -89,8 +89,8 @@
 标记清除算法：顾名思义分为两个阶段“标记”和“清除”，即首先标记处所有需要回收的对象，并标记完成统一的回收。其是后面所有算法的基础，主要不足有两个：一个是效率，标记和清除的效率都不高；一个是造成大量的内存碎片，导致后期分配较大对象的时候可能无法分配导致提前触发GC
 复制算法：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JAVA垃圾手机算法与垃圾收集器">
-<meta property="og:url" content="http://mtloveyt.com/2016/07/30/JAVA垃圾手机算法与垃圾收集器/index.html">
+<meta property="og:title" content="JAVA垃圾收集算法与垃圾收集器">
+<meta property="og:url" content="http://mtloveyt.com/2016/07/30/JAVA垃圾收集算法与垃圾收集器/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="垃圾收集算法&amp;emsp;&amp;emsp;垃圾收集的算法主要分为5种，每种都有自己各自的优缺点，如下所示就是5中垃圾收集算法：
 
@@ -104,9 +104,9 @@
 <meta property="og:image" content="http://mtloveyt.com/../images/PS.jpg">
 <meta property="og:image" content="http://mtloveyt.com/../images/cms.jpg">
 <meta property="og:image" content="http://mtloveyt.com/../images/g1.jpg">
-<meta property="og:updated_time" content="2016-07-30T11:43:46.549Z">
+<meta property="og:updated_time" content="2016-07-30T11:47:45.379Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JAVA垃圾手机算法与垃圾收集器">
+<meta name="twitter:title" content="JAVA垃圾收集算法与垃圾收集器">
 <meta name="twitter:description" content="垃圾收集算法&amp;emsp;&amp;emsp;垃圾收集的算法主要分为5种，每种都有自己各自的优缺点，如下所示就是5中垃圾收集算法：
 
 标记清除算法：顾名思义分为两个阶段“标记”和“清除”，即首先标记处所有需要回收的对象，并标记完成统一的回收。其是后面所有算法的基础，主要不足有两个：一个是效率，标记和清除的效率都不高；一个是造成大量的内存碎片，导致后期分配较大对象的时候可能无法分配导致提前触发GC
@@ -132,9 +132,9 @@
 
 
 
-  <link rel="canonical" href="http://mtloveyt.com/2016/07/30/JAVA垃圾手机算法与垃圾收集器/"/>
+  <link rel="canonical" href="http://mtloveyt.com/2016/07/30/JAVA垃圾收集算法与垃圾收集器/"/>
 
-  <title> JAVA垃圾手机算法与垃圾收集器 | Hexo </title>
+  <title> JAVA垃圾收集算法与垃圾收集器 | Hexo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -317,7 +317,7 @@
             
             
               
-                JAVA垃圾手机算法与垃圾收集器
+                JAVA垃圾收集算法与垃圾收集器
               
             
           </h1>
@@ -359,8 +359,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/30/JAVA垃圾手机算法与垃圾收集器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/30/JAVA垃圾手机算法与垃圾收集器/" itemprop="commentsCount"></span>
+                <a href="/2016/07/30/JAVA垃圾收集算法与垃圾收集器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/30/JAVA垃圾收集算法与垃圾收集器/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -419,9 +419,7 @@
 </li>
 </ul>
 <h4 id="G1垃圾收集器"><a href="#G1垃圾收集器" class="headerlink" title="G1垃圾收集器"></a>G1垃圾收集器</h4><p><img src="../images/g1.jpg" width="350" height="250" alt="图片名称" align="center"></p>
-<ol>
-<li>G1垃圾收集器特性<br>G1（Garbage-First）是一款面向服务端应用的垃圾收集器。HotSpot开发团队赋予它的使命是未来可以替换掉JDK 1.5中发布的CMS收集器。与其他GC收集器相比，G1具备如下特点。</li>
-</ol>
+<h5 id="G1垃圾收集器特性"><a href="#G1垃圾收集器特性" class="headerlink" title="G1垃圾收集器特性"></a>G1垃圾收集器特性</h5><p>G1（Garbage-First）是一款面向服务端应用的垃圾收集器。HotSpot开发团队赋予它的使命是未来可以替换掉JDK 1.5中发布的CMS收集器。与其他GC收集器相比，G1具备如下特点。</p>
 <ul>
 <li><p><strong>并行与并发</strong><br>G1能充分利用多CPU、多核环境下的硬件优势，使用多个CPU来缩短Stop-The-World停顿的时间，部分其他收集器原本需要停顿Java线程执行的GC动作，G1收集器仍然可以通过并发的方式让Java程序继续执行。</p>
 </li>
@@ -434,9 +432,7 @@
 </ul>
 <p>&emsp;&emsp;在G1之前的其他收集器进行收集的范围都是整个新生代或者老年代，而G1不再是这样。使用G1收集器时，Java堆的内存布局就与其他收集器有很大差别，它将整个Java堆划分为多个大小相等的独立区域（Region），虽然还保留有新生代和老年代的概念，但新生代和老年代不再是物理隔离的了，它们都是一部分Region（不需要连续）的集合。</p>
 <p>&emsp;&emsp;G1收集器之所以能建立可预测的停顿时间模型，是因为它可以有计划地避免在整个Java堆中进行全区域的垃圾收集。G1跟踪各个Region里面的垃圾堆积的价值大小（回收所获得的空间大小以及回收所需时间的经验值），在后台维护一个优先列表，每次根据允许的收集时间，优先回收价值最大的Region（这也就是Garbage-First名称的来由）。这种使用Region划分内存空间以及有优先级的区域回收方式，保证了G1收集器在有限的时间内可以获取尽可能高的收集效率。</p>
-<ol>
-<li>执行过程<br>&emsp;&emsp;G1收集器的运作大致可划分为以下几个步骤：</li>
-</ol>
+<p>#####　执行过程<br>G1收集器的运作大致可划分为以下几个步骤：</p>
 <ul>
 <li><p><strong>初始标记（Initial Marking）</strong><br>初始标记阶段仅仅只是标记一下GC Roots能直接关联到的对象，并且修改TAMS（Next Top at Mark Start）的值，让下一阶段用户程序并发运行时，能在正确可用的Region中创建新对象，这阶段需要停顿线程，但耗时很短。</p>
 </li>
@@ -499,10 +495,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/07/30/JAVA垃圾手机算法与垃圾收集器/"
-     data-title="JAVA垃圾手机算法与垃圾收集器"
+        <div class="ds-share flat" data-thread-key="2016/07/30/JAVA垃圾收集算法与垃圾收集器/"
+     data-title="JAVA垃圾收集算法与垃圾收集器"
      data-content=""
-     data-url="http://mtloveyt.com/2016/07/30/JAVA垃圾手机算法与垃圾收集器/">
+     data-url="http://mtloveyt.com/2016/07/30/JAVA垃圾收集算法与垃圾收集器/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -529,8 +525,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/30/JAVA垃圾手机算法与垃圾收集器/"
-           data-title="JAVA垃圾手机算法与垃圾收集器" data-url="http://mtloveyt.com/2016/07/30/JAVA垃圾手机算法与垃圾收集器/">
+      <div class="ds-thread" data-thread-key="2016/07/30/JAVA垃圾收集算法与垃圾收集器/"
+           data-title="JAVA垃圾收集算法与垃圾收集器" data-url="http://mtloveyt.com/2016/07/30/JAVA垃圾收集算法与垃圾收集器/">
       </div>
     
   </div>
@@ -659,7 +655,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集算法"><span class="nav-number">1.</span> <span class="nav-text">垃圾收集算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">2.</span> <span class="nav-text">垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Serial收集器"><span class="nav-number">2.1.</span> <span class="nav-text">Serial收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ParNew收集器"><span class="nav-number">2.2.</span> <span class="nav-text">ParNew收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parallel-Scavenge垃圾收集器"><span class="nav-number">2.3.</span> <span class="nav-text">Parallel Scavenge垃圾收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Serial-Old垃圾收集器"><span class="nav-number">2.4.</span> <span class="nav-text">Serial Old垃圾收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parallel-Old垃圾收集器"><span class="nav-number">2.5.</span> <span class="nav-text">Parallel Old垃圾收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMS收集器"><span class="nav-number">2.6.</span> <span class="nav-text">CMS收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G1垃圾收集器"><span class="nav-number">2.7.</span> <span class="nav-text">G1垃圾收集器</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集算法"><span class="nav-number">1.</span> <span class="nav-text">垃圾收集算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾收集器"><span class="nav-number">2.</span> <span class="nav-text">垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Serial收集器"><span class="nav-number">2.1.</span> <span class="nav-text">Serial收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ParNew收集器"><span class="nav-number">2.2.</span> <span class="nav-text">ParNew收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parallel-Scavenge垃圾收集器"><span class="nav-number">2.3.</span> <span class="nav-text">Parallel Scavenge垃圾收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Serial-Old垃圾收集器"><span class="nav-number">2.4.</span> <span class="nav-text">Serial Old垃圾收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Parallel-Old垃圾收集器"><span class="nav-number">2.5.</span> <span class="nav-text">Parallel Old垃圾收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMS收集器"><span class="nav-number">2.6.</span> <span class="nav-text">CMS收集器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#G1垃圾收集器"><span class="nav-number">2.7.</span> <span class="nav-text">G1垃圾收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#G1垃圾收集器特性"><span class="nav-number">2.7.1.</span> <span class="nav-text">G1垃圾收集器特性</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
