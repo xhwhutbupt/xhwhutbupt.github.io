@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="-JAVA," />
 
 
 
@@ -84,15 +84,16 @@
 
 
 
-<meta name="description" content="A place to accumulate">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://mtloveyt.com/archives/index.html">
+<meta name="description" content="&amp;emsp;&amp;emsp;其实我们在回头去看JAVA的自动内存管理，JVM其实就做了两件事情：给对象分配内存以及通过适当的方式回收分配给对象的内存。前面一节我们详述了JAVA中内存回收机制。这一节我们将探讨JAVA是对象内存分配的一些事情。&amp;emsp;&amp;emsp;前面我们已经提及一些关于对象在内存中的分配方式有指针碰撞和空闲列表（针对不同的垃圾收集器和所处内存空间）以及如何处理并发内存分配的时候线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存分配和回收策略">
+<meta property="og:url" content="http://mtloveyt.com/2016/07/30/内存分配和回收策略/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="A place to accumulate">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;其实我们在回头去看JAVA的自动内存管理，JVM其实就做了两件事情：给对象分配内存以及通过适当的方式回收分配给对象的内存。前面一节我们详述了JAVA中内存回收机制。这一节我们将探讨JAVA是对象内存分配的一些事情。&amp;emsp;&amp;emsp;前面我们已经提及一些关于对象在内存中的分配方式有指针碰撞和空闲列表（针对不同的垃圾收集器和所处内存空间）以及如何处理并发内存分配的时候线程">
+<meta property="og:updated_time" content="2016-07-31T06:49:57.960Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="A place to accumulate">
+<meta name="twitter:title" content="内存分配和回收策略">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;其实我们在回头去看JAVA的自动内存管理，JVM其实就做了两件事情：给对象分配内存以及通过适当的方式回收分配给对象的内存。前面一节我们详述了JAVA中内存回收机制。这一节我们将探讨JAVA是对象内存分配的一些事情。&amp;emsp;&amp;emsp;前面我们已经提及一些关于对象在内存中的分配方式有指针碰撞和空闲列表（针对不同的垃圾收集器和所处内存空间）以及如何处理并发内存分配的时候线程">
 
 
 
@@ -113,9 +114,9 @@
 
 
 
-  <link rel="canonical" href="http://mtloveyt.com/archives/"/>
+  <link rel="canonical" href="http://mtloveyt.com/2016/07/30/内存分配和回收策略/"/>
 
-  <title> 归档 | Hexo </title>
+  <title> 内存分配和回收策略 | Hexo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,7 +147,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -277,288 +278,184 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 7 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/30/内存分配和回收策略/" itemprop="url">
-              
-                <span itemprop="name">内存分配和回收策略</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-30T20:10:30+08:00"
-              content="2016-07-30" >
-          07-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/30/理解JAVA垃圾回收日志/" itemprop="url">
-              
-                <span itemprop="name">理解JAVA垃圾回收日志</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-30T19:59:50+08:00"
-              content="2016-07-30" >
-          07-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/30/JAVA垃圾收集算法与垃圾收集器/" itemprop="url">
-              
-                <span itemprop="name">JAVA垃圾收集算法与垃圾收集器</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-30T11:55:32+08:00"
-              content="2016-07-30" >
-          07-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/29/垃圾收集器与内存分配策略/" itemprop="url">
-              
-                <span itemprop="name">垃圾收集器与内存分配策略</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-29T21:32:35+08:00"
-              content="2016-07-29" >
-          07-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/29/JAVA对象的创建和内存存储布局/" itemprop="url">
-              
-                <span itemprop="name">JAVA对象的创建和内存存储布局</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-29T12:55:23+08:00"
-              content="2016-07-29" >
-          07-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/26/JAVA内存区域与内存溢出异常/" itemprop="url">
-              
-                <span itemprop="name">JAVA内存区域与内存溢出异常</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-26T20:33:50+08:00"
-              content="2016-07-26" >
-          07-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/24/hello-world/" itemprop="url">
-              
-                <span itemprop="name">Hello World</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-24T15:12:52+08:00"
-              content="2016-07-24" >
-          07-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
+  
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                内存分配和回收策略
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-30T20:10:30+08:00" content="2016-07-30">
+              2016-07-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JAVA虚拟机/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA虚拟机</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/30/内存分配和回收策略/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/30/内存分配和回收策略/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;其实我们在回头去看JAVA的自动内存管理，JVM其实就做了两件事情：给对象分配内存以及通过适当的方式回收分配给对象的内存。前面一节我们详述了JAVA中内存回收机制。这一节我们将探讨JAVA是对象内存分配的一些事情。<br>&emsp;&emsp;前面我们已经提及一些关于对象在内存中的分配方式有指针碰撞和空闲列表（针对不同的垃圾收集器和所处内存空间）以及如何处理并发内存分配的时候线程之前的冲突（CAS配上失败重试和TLAB）。但对于对象究竟分配在哪个年代的内存上并没有详细的阐述。概括了讲：对象主要分配在Eden区，如果启动了TLAB则对象优先分配在TLAB上，少数情况分配在老年代上。</p>
+<h3 id="对象优先在Eden区上分配"><a href="#对象优先在Eden区上分配" class="headerlink" title="对象优先在Eden区上分配"></a>对象优先在Eden区上分配</h3><p>&emsp;&emsp;首先虚拟机提供了-XX:+PrintGCDetails参数来打印输出收集器日志参数。实际应用中，内存回收日志一般是打印到文件后通过日志工具进行分析。<br>Eden区上对象分配和回收过程如下面所示：</p>
+<ol>
+<li>绝大多数刚创建的对象会被分配在Eden区，其中的大多数对象很快就会消亡。<font color="#FF0000">Eden区是连续的内存空间，因此在其上分配内存极快</font>；</li>
+<li>当Eden区满的时候，执行Minor GC，将消亡的对象清理掉，并将剩余的对象复制到一个存活区Survivor0（此时，Survivor1是空白的，两个Survivor总有一个是空白的,<font color="#FF0000">这里还需要注意的是如果剩余的对象是很大的对象即无法放入Survivor的时候就只有通过分配担保机制提前转移到老年代</font>）；</li>
+<li>此后，每次Eden区满了，就执行一次Minor GC，并将剩余的对象都添加到Survivor0；</li>
+<li>当Survivor0也满的时候，将其中仍然活着的对象直接复制到Survivor1，以后Eden区执行Minor GC后，就将剩余的对象添加Survivor1（此时，Survivor0是空白的）。</li>
+<li>当两个存活区切换了几次（HotSpot虚拟机默认15次，用-XX:MaxTenuringThreshold控制，大于该值进入老年代）之后，仍然存活的对象（其实只有一小部分，比如，我们自己定义的对象），将被复制到老年代。</li>
+</ol>
+<p><strong>注意：</strong>关于Minor GC和Full GC</p>
+<ul>
+<li>新生代内存空间发生的垃圾收集动作称为Minor GC，该GC发生的很频繁，垃圾回收速度也很快</li>
+<li>老年代GC(Major GC或者Full GC):出现了老年代的GC往往都伴有Minor GC，其速度一般比Minor GC慢10倍以上</li>
+</ul>
+<h3 id="大对象直接进入老年代"><a href="#大对象直接进入老年代" class="headerlink" title="大对象直接进入老年代"></a>大对象直接进入老年代</h3><p>&emsp;&emsp;所谓大对象是指那些需要大量连续内存空间的java对象，最典型的就是很长的字符串和数组。大对象本身对虚拟机而言是不好的消息。因为这类对象很容易提早的触发垃圾回收（因为可能没有足够的连续空间存放他们）。  虚拟机提供了一个参数用于设定多大的对象直接进入老年代中（-XX:PretenureSizeThreshold参数）。从而避免在eden区和Survivor区发生大对象的复制。</p>
+<h3 id="长期存活的对象将进入老年代"><a href="#长期存活的对象将进入老年代" class="headerlink" title="长期存活的对象将进入老年代"></a>长期存活的对象将进入老年代</h3><p>&emsp;&emsp;在JVM中通过设置-XX:MaxTenuringThreshold来设置年轻代中对象晋升到老年代的年龄阈值，要知道的是每经过一次Minor GC对象的年龄就会增长一岁，直到达到这个阈值就会被放到老年代。</p>
+<h3 id="动态对象年龄判定"><a href="#动态对象年龄判定" class="headerlink" title="动态对象年龄判定"></a>动态对象年龄判定</h3><p>&emsp;&emsp;我们需要注意的是并不是永远的要求对象的年龄必须达到了MaxTenurThreshold才能晋升到老年代。如果在Survivor空间中相同年龄所有对象大小的综合大于Survivor空间的一半，年龄大于或等于该年龄的对象可以直接进入老年代中。</p>
+<h3 id="空间分配担保"><a href="#空间分配担保" class="headerlink" title="空间分配担保"></a>空间分配担保</h3><p>&emsp;&emsp;在发生Minor GC之前，虚拟机会先检查老年代最大可用的连续空间是否大于新生代所有对象的总空间（为什么要检查呢，因为可能出现大量对象在Minor GC之后仍然存活，而Survivor有无法存放，所以只能放入老年代，所以需要检查老年代是否有足够的内存空间），如果这个条件成立，Minor GC才是确保安全的。如果不成立，此时虚拟机会查看HandlePromotionFailure设置值是否允许担保失败。如果允许，那么会检查老年代最大可用的连续空间是否大于历次晋升到老年代的对象的平均大小，如果大于，将尝试一次Minor GC。如果小于或者该参数值设置为false则先会对老年代进行一次Full GC。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JAVA/" rel="tag">#-JAVA</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/30/理解JAVA垃圾回收日志/" rel="next" title="理解JAVA垃圾回收日志">
+                <i class="fa fa-chevron-left"></i> 理解JAVA垃圾回收日志
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/30/内存分配和回收策略/"
+     data-title="内存分配和回收策略"
+     data-content=""
+     data-url="http://mtloveyt.com/2016/07/30/内存分配和回收策略/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -566,6 +463,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/30/内存分配和回收策略/"
+           data-title="内存分配和回收策略" data-url="http://mtloveyt.com/2016/07/30/内存分配和回收策略/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -585,8 +490,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -674,6 +588,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象优先在Eden区上分配"><span class="nav-number">1.</span> <span class="nav-text">对象优先在Eden区上分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大对象直接进入老年代"><span class="nav-number">2.</span> <span class="nav-text">大对象直接进入老年代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#长期存活的对象将进入老年代"><span class="nav-number">3.</span> <span class="nav-text">长期存活的对象将进入老年代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态对象年龄判定"><span class="nav-number">4.</span> <span class="nav-text">动态对象年龄判定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间分配担保"><span class="nav-number">5.</span> <span class="nav-text">空间分配担保</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -777,11 +702,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   
