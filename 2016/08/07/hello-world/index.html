@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="-JAVA," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,16 +84,19 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;其实我们在回头去看JAVA的自动内存管理，JVM其实就做了两件事情：给对象分配内存以及通过适当的方式回收分配给对象的内存。前面一节我们详述了JAVA中内存回收机制。这一节我们将探讨JAVA是对象内存分配的一些事情。&amp;emsp;&amp;emsp;前面我们已经提及一些关于对象在内存中的分配方式有指针碰撞和空闲列表（针对不同的垃圾收集器和所处内存空间）以及如何处理并发内存分配的时候线程">
+<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick">
 <meta property="og:type" content="article">
-<meta property="og:title" content="内存分配和回收策略">
-<meta property="og:url" content="http://mtloveyt.com/2016/07/30/内存分配和回收策略/index.html">
+<meta property="og:title" content="Hello World">
+<meta property="og:url" content="http://mtloveyt.com/2016/08/07/hello-world/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;其实我们在回头去看JAVA的自动内存管理，JVM其实就做了两件事情：给对象分配内存以及通过适当的方式回收分配给对象的内存。前面一节我们详述了JAVA中内存回收机制。这一节我们将探讨JAVA是对象内存分配的一些事情。&amp;emsp;&amp;emsp;前面我们已经提及一些关于对象在内存中的分配方式有指针碰撞和空闲列表（针对不同的垃圾收集器和所处内存空间）以及如何处理并发内存分配的时候线程">
-<meta property="og:updated_time" content="2016-07-31T06:49:57.000Z">
+<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick">
+<meta property="og:updated_time" content="2016-07-24T09:08:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="内存分配和回收策略">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;其实我们在回头去看JAVA的自动内存管理，JVM其实就做了两件事情：给对象分配内存以及通过适当的方式回收分配给对象的内存。前面一节我们详述了JAVA中内存回收机制。这一节我们将探讨JAVA是对象内存分配的一些事情。&amp;emsp;&amp;emsp;前面我们已经提及一些关于对象在内存中的分配方式有指针碰撞和空闲列表（针对不同的垃圾收集器和所处内存空间）以及如何处理并发内存分配的时候线程">
+<meta name="twitter:title" content="Hello World">
+<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick">
 
 
 
@@ -114,9 +117,9 @@
 
 
 
-  <link rel="canonical" href="http://mtloveyt.com/2016/07/30/内存分配和回收策略/"/>
+  <link rel="canonical" href="http://mtloveyt.com/2016/08/07/hello-world/"/>
 
-  <title> 内存分配和回收策略 | Hexo </title>
+  <title> Hello World | Hexo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -299,7 +302,7 @@
             
             
               
-                内存分配和回收策略
+                Hello World
               
             
           </h1>
@@ -311,38 +314,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-30T20:10:30+08:00" content="2016-07-30">
-              2016-07-30
+            <time itemprop="dateCreated" datetime="2016-08-07T22:44:32+08:00" content="2016-08-07">
+              2016-08-07
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JAVA虚拟机/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVA虚拟机</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/30/内存分配和回收策略/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/30/内存分配和回收策略/" itemprop="commentsCount"></span>
+                <a href="/2016/08/07/hello-world/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/07/hello-world/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -365,24 +349,15 @@
       
 
       
-        <p>&emsp;&emsp;其实我们在回头去看JAVA的自动内存管理，JVM其实就做了两件事情：给对象分配内存以及通过适当的方式回收分配给对象的内存。前面一节我们详述了JAVA中内存回收机制。这一节我们将探讨JAVA是对象内存分配的一些事情。<br>&emsp;&emsp;前面我们已经提及一些关于对象在内存中的分配方式有指针碰撞和空闲列表（针对不同的垃圾收集器和所处内存空间）以及如何处理并发内存分配的时候线程之前的冲突（CAS配上失败重试和TLAB）。但对于对象究竟分配在哪个年代的内存上并没有详细的阐述。概括了讲：对象主要分配在Eden区，如果启动了TLAB则对象优先分配在TLAB上，少数情况分配在老年代上。</p>
-<h3 id="对象优先在Eden区上分配"><a href="#对象优先在Eden区上分配" class="headerlink" title="对象优先在Eden区上分配"></a>对象优先在Eden区上分配</h3><p>&emsp;&emsp;首先虚拟机提供了-XX:+PrintGCDetails参数来打印输出收集器日志参数。实际应用中，内存回收日志一般是打印到文件后通过日志工具进行分析。<br>Eden区上对象分配和回收过程如下面所示：</p>
-<ol>
-<li>绝大多数刚创建的对象会被分配在Eden区，其中的大多数对象很快就会消亡。<font color="#FF0000">Eden区是连续的内存空间，因此在其上分配内存极快</font>；</li>
-<li>当Eden区满的时候，执行Minor GC，将消亡的对象清理掉，并将剩余的对象复制到一个存活区Survivor0（此时，Survivor1是空白的，两个Survivor总有一个是空白的,<font color="#FF0000">这里还需要注意的是如果剩余的对象是很大的对象即无法放入Survivor的时候就只有通过分配担保机制提前转移到老年代</font>）；</li>
-<li>此后，每次Eden区满了，就执行一次Minor GC，并将剩余的对象都添加到Survivor0；</li>
-<li>当Survivor0也满的时候，将其中仍然活着的对象直接复制到Survivor1，以后Eden区执行Minor GC后，就将剩余的对象添加Survivor1（此时，Survivor0是空白的）。</li>
-<li>当两个存活区切换了几次（HotSpot虚拟机默认15次，用-XX:MaxTenuringThreshold控制，大于该值进入老年代）之后，仍然存活的对象（其实只有一小部分，比如，我们自己定义的对象），将被复制到老年代。</li>
-</ol>
-<p><strong>注意：</strong>关于Minor GC和Full GC</p>
-<ul>
-<li>新生代内存空间发生的垃圾收集动作称为Minor GC，该GC发生的很频繁，垃圾回收速度也很快</li>
-<li>老年代GC(Major GC或者Full GC):出现了老年代的GC往往都伴有Minor GC，其速度一般比Minor GC慢10倍以上</li>
-</ul>
-<h3 id="大对象直接进入老年代"><a href="#大对象直接进入老年代" class="headerlink" title="大对象直接进入老年代"></a>大对象直接进入老年代</h3><p>&emsp;&emsp;所谓大对象是指那些需要大量连续内存空间的java对象，最典型的就是很长的字符串和数组。大对象本身对虚拟机而言是不好的消息。因为这类对象很容易提早的触发垃圾回收（因为可能没有足够的连续空间存放他们）。  虚拟机提供了一个参数用于设定多大的对象直接进入老年代中（-XX:PretenureSizeThreshold参数）。从而避免在eden区和Survivor区发生大对象的复制。</p>
-<h3 id="长期存活的对象将进入老年代"><a href="#长期存活的对象将进入老年代" class="headerlink" title="长期存活的对象将进入老年代"></a>长期存活的对象将进入老年代</h3><p>&emsp;&emsp;在JVM中通过设置-XX:MaxTenuringThreshold来设置年轻代中对象晋升到老年代的年龄阈值，要知道的是每经过一次Minor GC对象的年龄就会增长一岁，直到达到这个阈值就会被放到老年代。</p>
-<h3 id="动态对象年龄判定"><a href="#动态对象年龄判定" class="headerlink" title="动态对象年龄判定"></a>动态对象年龄判定</h3><p>&emsp;&emsp;我们需要注意的是并不是永远的要求对象的年龄必须达到了MaxTenurThreshold才能晋升到老年代。如果在Survivor空间中相同年龄所有对象大小的综合大于Survivor空间的一半，年龄大于或等于该年龄的对象可以直接进入老年代中。</p>
-<h3 id="空间分配担保"><a href="#空间分配担保" class="headerlink" title="空间分配担保"></a>空间分配担保</h3><p>&emsp;&emsp;在发生Minor GC之前，虚拟机会先检查老年代最大可用的连续空间是否大于新生代所有对象的总空间（为什么要检查呢，因为可能出现大量对象在Minor GC之后仍然存活，而Survivor有无法存放，所以只能放入老年代，所以需要检查老年代是否有足够的内存空间），如果这个条件成立，Minor GC才是确保安全的。如果不成立，此时虚拟机会查看HandlePromotionFailure设置值是否允许担保失败。如果允许，那么会检查老年代最大可用的连续空间是否大于历次晋升到老年代的对象的平均大小，如果大于，将尝试一次Minor GC。如果小于或者该参数值设置为false则先会对老年代进行一次Full GC。</p>
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
       
     </div>
@@ -403,28 +378,18 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/JAVA/" rel="tag">#-JAVA</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/30/理解JAVA垃圾回收日志/" rel="next" title="理解JAVA垃圾回收日志">
-                <i class="fa fa-chevron-left"></i> 理解JAVA垃圾回收日志
+              <a href="/2016/08/01/HTTP协议/" rel="next" title="HTTP协议">
+                <i class="fa fa-chevron-left"></i> HTTP协议
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/31/一些常用的JDK命令行工具总结/" rel="prev" title="一些常用的JDK命令行工具总结">
-                一些常用的JDK命令行工具总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -439,10 +404,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/07/30/内存分配和回收策略/"
-     data-title="内存分配和回收策略"
+        <div class="ds-share flat" data-thread-key="2016/08/07/hello-world/"
+     data-title="Hello World"
      data-content=""
-     data-url="http://mtloveyt.com/2016/07/30/内存分配和回收策略/">
+     data-url="http://mtloveyt.com/2016/08/07/hello-world/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -469,8 +434,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/30/内存分配和回收策略/"
-           data-title="内存分配和回收策略" data-url="http://mtloveyt.com/2016/07/30/内存分配和回收策略/">
+      <div class="ds-thread" data-thread-key="2016/08/07/hello-world/"
+           data-title="Hello World" data-url="http://mtloveyt.com/2016/08/07/hello-world/">
       </div>
     
   </div>
@@ -599,7 +564,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象优先在Eden区上分配"><span class="nav-number">1.</span> <span class="nav-text">对象优先在Eden区上分配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大对象直接进入老年代"><span class="nav-number">2.</span> <span class="nav-text">大对象直接进入老年代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#长期存活的对象将进入老年代"><span class="nav-number">3.</span> <span class="nav-text">长期存活的对象将进入老年代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态对象年龄判定"><span class="nav-number">4.</span> <span class="nav-text">动态对象年龄判定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间分配担保"><span class="nav-number">5.</span> <span class="nav-text">空间分配担保</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
